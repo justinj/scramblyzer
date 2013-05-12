@@ -15,3 +15,12 @@
   (is (= 4
          (num-oriented-corners "R")))
  )
+
+(deftest test-cross-dist
+  (is (= 0
+         (cross-dist "")))
+  (is (= 1
+         (cross-dist "R")))
+  (is (= 1
+         (cross-dist "L2 R2 L2")))
+         )
