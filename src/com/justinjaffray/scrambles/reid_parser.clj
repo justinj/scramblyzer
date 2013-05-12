@@ -19,29 +19,29 @@
                [0 0 0 0 0 0 0 0])
 
     "D" (Move. [0 1 2 3 7 4 5 6 8 9 10 11]
-               [0 0 0 0 0 0 0 0 0 0 0  0]
+               [0 0 0 0 0 0 0 0 0 0 0 0]
                [0 1 2 3 5 6 7 4]
                [0 0 0 0 0 0 0 0])
 
     "F" (Move. [9 1 2 3 8 5 6 7 0 4 10 11]
-               [1 0 0 0 1 0 0 0 1 1 0  0]
-               [3 1 2 5  0  4 6 7]
+               [1 0 0 0 1 0 0 0 1 1 0 0]
+               [3 1 2 5 0 4 6 7]
                [1 0 0 -1 -1 1 0 0])
 
     "B" (Move. [0 1 10 3 4 5 11 7 8 9 6 2]
-               [0 0 1  0 0 0 1  0 0 0 1 1]
+               [0 0 1 0 0 0 1 0 0 0 1 1]
                [0 7 1 3 4 5 2 6]
                [0 -1 1 0 0 0 -1 1])
 
     "L" (Move. [0 1 2 11 4 5 6 9 8 3 10 7]
-               [0 0 0 0  0 0 0 0 0 0 0 0]
-               [0 1 6 2  4 3 5  7]
+               [0 0 0 0 0 0 0 0 0 0 0 0]
+               [0 1 6 2 4 3 5 7]
                [0 0 -1 1 0 -1 1 0])
 
     "R" (Move. [0 8 2 3 4 10 6 7 5 9 1 11]
-               [0 0  0 0 0 0 0 0 0 0 0 0]
+               [0 0 0 0 0 0 0 0 0 0 0 0]
                [4 0 2 3 7 5 6 1]
-               [-1 1 0 0 1 0  0 -1])
+               [-1 1 0 0 1 0 0 -1])
     }
   )
 
@@ -132,13 +132,17 @@
   (State. (apply-move-edges   (.edges state)   move)
           (apply-move-corners (.corners state) move))))
 
-(defn scramble-to-reid 
+(defn scramble-to-state 
   [scramble]
   "Create a Reid representation of a cube from a scramble"
   (let [moves (-> scramble
                 expand-scramble
                 scramble-moves)]
-    (state-to-reid 
       (reduce apply-move
               solved-state
-              moves))))
+              moves)))
+
+(defn scramble-to-reid
+  [scramble]
+  (state-to-reid (scramble-to-state
+    scramble)))

@@ -1,4 +1,5 @@
 (defproject scrambles "1.0.0-SNAPSHOT"
   :description "FIXME: write description"
-  :dependencies [[org.clojure/clojure "1.3.0"]]
+  :dependencies [[org.clojure/clojure "1.3.0"]
+                 [org.clojure/data.csv "0.1.2"]]
   :main com.justinjaffray.scrambles.core)
