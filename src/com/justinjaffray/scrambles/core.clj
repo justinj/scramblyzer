@@ -4,24 +4,7 @@
   (:use [clojure.data.csv])
   )
 
-; (def solved-edges "UF UR UB UL DF DR DB DL FR FL BR BL")
-; (def solved-corners "UFR URB UBL ULF DRF DFL DLB DBR")
-; (def solved-state (acube.format.ReidParser/parse 
-;                     (str solved-edges " " solved-corners))) 
-
-; (def edges "UF UL UB UR DF DR DB DL FR FL BR BL")
-; (def corners "URB UFR UBL ULF DRF DFL DLB DBR")
-; (def tperm (acube.format.ReidParser/parse 
-;                     (str edges " " corners))) 
-
-; (defn -main [] (println (.solveOptimal tperm
-;                            acube.Metric/FACE
-;                            acube.Turn/valueSet
-;                            20
-;                            false
-;                            (new acube.console.ConsoleReporter))))
-
-(def analyzing-function num-oriented-edges)
+(def analyzing-function num-oriented-corners)
 
 (defn- average
   [values]
@@ -35,7 +18,7 @@
     #"\n"
     -1))
 
-(def number-of-scramble-lengths 10)
+(def number-of-scramble-lengths 50)
 
 (def scramble-lists
   (map scrambles-of-length (range 0 number-of-scramble-lengths)))
@@ -45,8 +28,7 @@
   "Analyzes a list of scrambles for a specific function"
   (average
     (map metric-function
-         scrambles))
-  )
+         scrambles)))
 
 (defn- analyze-lists
   [lists]
@@ -59,6 +41,7 @@
     (spit filename
           (with-out-str
             (write-csv *out*
+                       (concat [["length" "stat"]]
                        (map list
                             (range)
-                            (analyze-lists scramble-lists))))))
+                            (analyze-lists scramble-lists)))))))

@@ -9,3 +9,5 @@
 cache
 /data
 /chart
+.RData
+*.Rout
