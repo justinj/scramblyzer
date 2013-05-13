@@ -23,4 +23,17 @@
          (cross-dist "R")))
   (is (= 1
          (cross-dist "L2 R2 L2")))
+  (is (= 1
+         (cross-dist "F")))
+         )
+
+(deftest test-filter-pieces
+  (is (= "UF @?"
+         (filter-pieces #{"UF"} "UF DB")))
+  (is (= "FU @?"
+         (filter-pieces #{"UF"} "FU DB")))
+  (is (= "FUR @?"
+         (filter-pieces #{"URF"} "FUR DB")))
+  (is (= "FUR @?"
+         (filter-pieces #{"FUR"} "FUR DB")))
          )

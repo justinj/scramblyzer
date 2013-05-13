@@ -1,4 +1,5 @@
 (ns com.justinjaffray.scrambles.analyzer
+  (:use [clojure.string :only [split join]])
   (:use [com.justinjaffray.scrambles.reid-parser])
   (:use [com.justinjaffray.scrambles.piece-filter])
   )
@@ -8,14 +9,14 @@
   "Determines the number of oriented corners from a scramble"
   (count
     (filter corner-oriented? 
-            (.corners (scramble-to-state scramble)))))
+            (.corners (scramble->state scramble)))))
 
 (defn num-oriented-edges
   [scramble]
   "Determines the number of oriented edges from a scramble"
   (count
     (filter edge-oriented? 
-            (.edges (scramble-to-state scramble)))))
+            (.edges (scramble->state scramble)))))
 
 (defn solve-optimal
   [reid-string]
@@ -53,6 +54,48 @@
                    reporter )
     @distance-result))
 
+(defn- ignore-piece-unless
+  [pred piece]
+  "Unless the piece or any of its twists matches the predicate,
+  replace it with the Acube symbol for ignore (@?)"
+  (if (some pred (map (partial twist piece) (range (count piece))))
+    piece
+    "@?"))
+
+(defn- string->pieces
+  [reid-string]
+  (split reid-string #" "))
+
+(defn- pieces->string
+  [pieces]
+  )
+
+(defn- reid-edges
+  [reid-string]
+  (take 12 (string->pieces reid-string)))
+
+(defn- reid-corners
+  [reid-string]
+  (drop 12 (string->pieces reid-string)))
+
+(defn filter-pieces
+  ([pred reid]
+   (filter-pieces pred pred reid))
+  ([edge-pred corner-pred reid]
+    (let [edges   (reid-edges reid)
+          corners (reid-corners reid)]
+     (str (join " " 
+                (into [] (concat
+                  (map 
+                    (partial ignore-piece-unless edge-pred) 
+                    edges)
+                  (map 
+                    (partial ignore-piece-unless corner-pred)
+                    corners)))
+                )))))
+
 (defn cross-dist
   [scramble]
-  (solve-optimal (scramble-to-reid scramble)))
+  (solve-optimal (filter-pieces
+                   #{"DR" "DB" "DL" "DF"}
+                   (scramble->reid scramble))))

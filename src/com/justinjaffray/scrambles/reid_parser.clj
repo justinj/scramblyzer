@@ -85,7 +85,7 @@
 (def solved-state
   (State. solved-edges solved-corners))
 
-(defn state-to-reid 
+(defn state->reid 
   [state]
   "Takes a State record and makes a Reid string out of it"
   (str (join " " (concat (.edges state) (.corners state)))))
@@ -132,9 +132,9 @@
   (State. (apply-move-edges   (.edges state)   move)
           (apply-move-corners (.corners state) move))))
 
-(defn scramble-to-state 
+(defn scramble->state 
   [scramble]
-  "Create a Reid representation of a cube from a scramble"
+  "Create a State record from a scramble"
   (let [moves (-> scramble
                 expand-scramble
                 scramble-moves)]
@@ -142,7 +142,7 @@
               solved-state
               moves)))
 
-(defn scramble-to-reid
+(defn scramble->reid
   [scramble]
-  (state-to-reid (scramble-to-state
+  (state->reid (scramble->state
     scramble)))

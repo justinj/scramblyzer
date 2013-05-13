@@ -3,8 +3,9 @@
   (:use [com.justinjaffray.scrambles.stats])
   (:use [clojure.string :only [split]])
   (:use [clojure.data.csv])
+  (:gen-class)
   )
 
 (defn -main []
   (println
-    (get-csv num-oriented-corners)))
+    (get-csv cross-dist)))

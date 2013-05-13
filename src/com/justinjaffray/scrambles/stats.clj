@@ -3,7 +3,8 @@
   (:use [clojure.data.csv]))
 
 (def filename "data/results.csv")
-(def number-of-scramble-lengths 10)
+(def number-of-scramble-lengths 50)
+(def scrambles-to-use 1000)
 
 (defn- average
   [values]
@@ -12,10 +13,11 @@
 
 (defn- scrambles-of-length
   [length]
+  (take scrambles-to-use
   (split 
     (slurp (str "data/scrambles_len_" length))
     #"\n"
-    -1))
+    -1)))
 
 (def scramble-lists
   (map scrambles-of-length (range 0 number-of-scramble-lengths)))
