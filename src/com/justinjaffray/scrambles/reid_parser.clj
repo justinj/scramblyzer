@@ -55,7 +55,7 @@
    "2" 2
    "'" 3})
 
-(defn expand-move
+(defn- expand-move
   [move]
   "Turn a move like R2 into clockwise turns like R R"
   (let [prefix (subs move 0 1)
@@ -64,7 +64,7 @@
           (cycle prefix))
     ))
 
-(defn expand-scramble
+(defn- expand-scramble
   [scramble]
   "Turn all the moves into one of {U,D,L,R,F,B}"
   (let [moves (scramble-moves scramble)]
@@ -90,7 +90,7 @@
   "Takes a State record and makes a Reid string out of it"
   (str (join " " (concat (.edges state) (.corners state)))))
 
-(defn twist
+(defn- twist
   [piece-name amount]
   "Twist a piece by the amount given.
   e.g., UF twisted becomes FU"
@@ -102,13 +102,13 @@
                   (dec times)))
     ))
 
-(defn permute
+(defn- permute
   [base permutation]
   "Applies the permutation to the base"
   (vec (for [index permutation]
     (base index))))
 
-(defn orient
+(defn- orient
   [base orientation]
   "Applies the orientation to the pieces"
   (vec (map twist base orientation))
