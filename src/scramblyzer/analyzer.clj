@@ -61,18 +61,6 @@
     piece
     "@?"))
 
-(defn- string->pieces
-  [reid-string]
-  (split reid-string #" "))
-
-(defn- reid-edges
-  [reid-string]
-  (take 12 (string->pieces reid-string)))
-
-(defn- reid-corners
-  [reid-string]
-  (drop 12 (string->pieces reid-string)))
-
 (defn- filter-pieces
   ([pred state]
    (filter-pieces pred pred state))
