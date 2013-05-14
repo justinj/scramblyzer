@@ -1,8 +1,7 @@
 (ns scramblyzer.analyzer
   (:use [clojure.string :only [split join]])
   (:use [scramblyzer.reid-parser])
-  (:use [scramblyzer.piece-filter])
-  )
+  (:use [scramblyzer.piece-filter]))
 
 (defn num-oriented-corners
   [scramble]
@@ -44,8 +43,7 @@
                                 fl)))
                    (onePhaseStatistics
                      [pruneChecks pruneHits]
-                     nil)
-                   )]
+                     nil))]
     (.solveOptimal cube-state
                    acube.Metric/FACE
                    acube.Turn/valueSet
@@ -65,10 +63,6 @@
 (defn- string->pieces
   [reid-string]
   (split reid-string #" "))
-
-(defn- pieces->string
-  [pieces]
-  )
 
 (defn- reid-edges
   [reid-string]
@@ -91,8 +85,7 @@
                     edges)
                   (map 
                     (partial ignore-piece-unless corner-pred)
-                    corners)))
-                )))))
+                    corners))))))))
 
 (defn cross-dist
   [scramble]

@@ -1,6 +1,5 @@
 (ns scramblyzer.reid-parser
-  [:use [clojure.string :only [join split]]]
-  )
+  [:use [clojure.string :only [join split]]])
 
 (defrecord Move 
   [edge-perm
@@ -41,9 +40,7 @@
     "R" (Move. [0 8 2 3 4 10 6 7 5 9 1 11]
                [0 0 0 0 0 0 0 0 0 0 0 0]
                [4 0 2 3 7 5 6 1]
-               [-1 1 0 0 1 0 0 -1])
-    }
-  )
+               [-1 1 0 0 1 0 0 -1])})
 
 (defn- scramble-moves
   [scramble]
@@ -61,8 +58,7 @@
   (let [prefix (subs move 0 1)
         suffix (subs move 1)]
     (take (move-type-counts suffix)
-          (cycle prefix))
-    ))
+          (cycle prefix)))) 
 
 (defn- expand-scramble
   [scramble]
@@ -71,8 +67,7 @@
   (join " "
         (mapcat
           expand-move
-          moves))
-  ))
+          moves))))
 
 (def solved-edges
   ; 0    1    2    3    4    5    6    7    8    9    10   11
@@ -99,8 +94,7 @@
     (cond (= times 0) piece-name
           :else (twist
                   (join (concat (rest sides) (list (first sides))))
-                  (dec times)))
-    ))
+                  (dec times)))))
 
 (defn- permute
   [base permutation]
@@ -111,8 +105,7 @@
 (defn- orient
   [base orientation]
   "Applies the orientation to the pieces"
-  (vec (map twist base orientation))
-  )
+  (vec (map twist base orientation)))
 
 (defn- apply-move-edges
   [edges move]

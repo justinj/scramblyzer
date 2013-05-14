@@ -3,8 +3,7 @@
   (:use [scramblyzer.stats])
   (:use [clojure.string :only [split]])
   (:use [clojure.data.csv])
-  (:gen-class)
-  )
+  (:gen-class))
 
 (defn -main []
   (println

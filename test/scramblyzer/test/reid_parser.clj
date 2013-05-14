@@ -18,13 +18,11 @@
    (is (= "UF UR RB UL DF DR LB DL FR FL BD BU UFR RDB RBU ULF DRF DFL LUB LBD"
           (scramble->reid "B")))
    (is (= "UF UR UB BL DF DR DB FL FR UL BR DL UFR URB BDL BLU DRF FUL FLD DBR"
-          (scramble->reid "L")))
-         )
+          (scramble->reid "L"))))
 
 (deftest test-tperm
          (is (= "UF UL UB UR DF DR DB DL FR FL BR BL URB UFR UBL ULF DRF DFL DLB DBR"
-                (scramble->reid "R U R' U' R' F R2 U' R' U' R U R' F'")))
-         )
+                (scramble->reid "R U R' U' R' F R2 U' R' U' R U R' F'"))))
 
 (deftest test-twist
   (is (= "FU"
@@ -34,6 +32,5 @@
   (is (= "RUF"
          (twist "FRU" 1)))
   (is (= "UFR"
-         (twist "FRU" -1)))
-  )
+         (twist "FRU" -1))))
 

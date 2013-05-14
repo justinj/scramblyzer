@@ -8,8 +8,7 @@
 
 (defn- average
   [values]
-  (float (/ (reduce + values) (count values)))
-  )
+  (float (/ (reduce + values) (count values))))
 
 (defn- scrambles-of-length
   [length]
