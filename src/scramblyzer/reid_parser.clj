@@ -155,5 +155,6 @@
 
 (defn scramble->reid
   [scramble]
-  (state->reid (scramble->state
-    scramble)))
+  (-> scramble
+      scramble->state
+      state->reid))
