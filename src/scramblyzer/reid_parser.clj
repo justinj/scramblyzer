@@ -1,5 +1,5 @@
 (ns scramblyzer.reid-parser
-  [:use [clojure.string :only [join split]]])
+  [:use [clojure.string :only [join split blank?]]])
 
 (defrecord Move 
   [edge-perm
@@ -44,8 +44,8 @@
 
 (defn- scramble-moves
   [scramble]
-  (remove #(= % "") 
-          (seq (.split scramble " " -1))))
+  (remove blank?
+          (seq (split scramble #"\s+"))))
 
 (def move-type-counts
   {""  1
@@ -79,11 +79,6 @@
 
 (def solved-state
   (State. solved-edges solved-corners))
-
-(defn state->reid 
-  [state]
-  "Takes a State record and makes a Reid string out of it"
-  (str (join " " (concat (.edges state) (.corners state)))))
 
 (defn twist
   [piece-name amount]
@@ -134,6 +129,29 @@
       (reduce apply-move
               solved-state
               moves)))
+
+(defn- string->pieces
+  [reid-string]
+  (split reid-string #" "))
+
+(defn state->reid 
+  [state]
+  "Takes a State record and makes a Reid string out of it"
+  (str (join " " (concat (.edges state) (.corners state)))))
+
+(defn- reid-edges
+  [reid-string]
+  (take 12 (string->pieces reid-string)))
+
+(defn- reid-corners
+  [reid-string]
+  (drop 12 (string->pieces reid-string)))
+
+(defn reid->state
+  [reid]
+  (State.
+    (reid-edges reid)
+    (reid-corners reid)))
 
 (defn scramble->reid
   [scramble]

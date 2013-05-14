@@ -23,7 +23,8 @@
 
 (defn- analyze-scrambles
   [metric-function scrambles]
-  "Analyzes a list of scrambles for a specific function"
+  "Provides the average value of applying the metric-function
+  to each scramble in the list"
   (average
     (map metric-function
          scrambles)))

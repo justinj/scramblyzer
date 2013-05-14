@@ -1,6 +1,8 @@
 (ns scramblyzer.test.reid-parser
   (:use [scramblyzer.reid-parser])
-  (:use [clojure.test]))
+  (:use [clojure.test])
+  ; (:import [scramblyzer.reid-parser State])
+)
 
 (deftest test-empty
    (is (= "UF UR UB UL DF DR DB DL FR FL BR BL UFR URB UBL ULF DRF DFL DLB DBR"
@@ -34,3 +36,13 @@
   (is (= "UFR"
          (twist "FRU" -1))))
 
+(deftest test-reid->state
+  (let [solved-state 
+        (reid->state 
+          "UF UR UB UL DF DR DB DL FR FL BR BL UFR URB UBL ULF DRF DFL DLB DBR")]
+  (is (= (.edges 
+           solved-state)
+           ["UF" "UR" "UB" "UL" "DF" "DR" "DB" "DL" "FR" "FL" "BR" "BL"])))
+  (is (= (.corners 
+           solved-state)
+           ["UFR" "URB" "UBL" "ULF" "DRF" "DFL" "DLB" "DBR"])))
