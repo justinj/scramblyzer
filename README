@@ -1,10 +1,15 @@
 # Scramble-Analyzer
 
-Coming...
+Analyzing Rubik's Cube scrambles.
 
 ## Usage
 
-Coming...
+###To run:
+
+* Ensure you have Clojure and Leiningen installed
+* Clone the repo
+* Run `lein test`
+* The first time will take a while to run, as acube needs to generate cache files (which will be stored in `cache`)
 
 ## License
 
