@@ -56,7 +56,7 @@
   [pred piece]
   "Unless the piece or any of its twists matches the predicate,
   replace it with the Acube symbol for ignore (@?)"
-  (if (some pred (map (partial twist piece) (range (count piece))))
+  (if (pred piece)
     piece
     "@?"))
 
@@ -79,16 +79,16 @@
     (let [edges   (reid-edges reid)
           corners (reid-corners reid)]
      (str (join " " 
-                (into [] (concat
+                (concat
                   (map 
                     (partial ignore-piece-unless edge-pred) 
                     edges)
                   (map 
                     (partial ignore-piece-unless corner-pred)
-                    corners))))))))
+                    corners)))))))
 
 (defn cross-dist
   [scramble]
   (solve-optimal (filter-pieces
-                   #{"DR" "DB" "DL" "DF"}
+                   cross-edge?
                    (scramble->reid scramble))))

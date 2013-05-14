@@ -30,10 +30,6 @@
 (deftest test-filter-pieces
   (is (= "UF @?"
          (filter-pieces #{"UF"} "UF DB")))
-  (is (= "FU @?"
-         (filter-pieces #{"UF"} "FU DB")))
-  (is (= "FUR @?"
-         (filter-pieces #{"URF"} "FUR DB")))
   (is (= "FUR @?"
          (filter-pieces #{"FUR"} "FUR DB")))
          )
