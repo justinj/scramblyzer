@@ -4,12 +4,11 @@ Analyzing Rubik's Cube scrambles.
 
 ## Usage
 
-###To run:
+When running for the first time,
+don't worry if it takes a while,
+since acube needs to pre-generate some solving data.
 
-* Ensure you have Clojure and Leiningen installed
-* Clone the repo
-* Run `lein test`
-* The first time will take a while to run, as acube needs to generate cache files (which will be stored in `cache`)
+Later runs will be quicker.
 
 ## License
 
