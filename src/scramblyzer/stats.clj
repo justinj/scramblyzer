@@ -1,4 +1,4 @@
-(ns com.justinjaffray.scrambles.stats
+(ns scramblyzer.stats
   (:use [clojure.string :only [split]])
   (:use [clojure.data.csv]))
 

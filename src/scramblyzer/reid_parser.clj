@@ -1,4 +1,4 @@
-(ns com.justinjaffray.scrambles.reid-parser
+(ns scramblyzer.reid-parser
   [:use [clojure.string :only [join split]]]
   )
 
@@ -90,7 +90,7 @@
   "Takes a State record and makes a Reid string out of it"
   (str (join " " (concat (.edges state) (.corners state)))))
 
-(defn- twist
+(defn twist
   [piece-name amount]
   "Twist a piece by the amount given.
   e.g., UF twisted becomes FU"

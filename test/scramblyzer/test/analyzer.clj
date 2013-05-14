@@ -1,5 +1,5 @@
-(ns com.justinjaffray.scrambles.test.analyzer
-  (:use [com.justinjaffray.scrambles.analyzer])
+(ns scramblyzer.test.analyzer
+  (:use [scramblyzer.analyzer])
   (:use [clojure.test]))
 
 (deftest test-num-oriented-edges

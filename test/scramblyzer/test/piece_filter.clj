@@ -1,5 +1,5 @@
-(ns com.justinjaffray.scrambles.test.piece-filter
-  (:use [com.justinjaffray.scrambles.piece-filter])
+(ns scramblyzer.test.piece-filter
+  (:use [scramblyzer.piece-filter])
   (:use [clojure.test]))
 
 (deftest test-edge-oriented

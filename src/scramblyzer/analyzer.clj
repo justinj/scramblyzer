@@ -1,7 +1,7 @@
-(ns com.justinjaffray.scrambles.analyzer
+(ns scramblyzer.analyzer
   (:use [clojure.string :only [split join]])
-  (:use [com.justinjaffray.scrambles.reid-parser])
-  (:use [com.justinjaffray.scrambles.piece-filter])
+  (:use [scramblyzer.reid-parser])
+  (:use [scramblyzer.piece-filter])
   )
 
 (defn num-oriented-corners

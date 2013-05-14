@@ -1,6 +1,6 @@
-(ns com.justinjaffray.scrambles.core
-  (:use [com.justinjaffray.scrambles.analyzer])
-  (:use [com.justinjaffray.scrambles.stats])
+(ns scramblyzer.core
+  (:use [scramblyzer.analyzer])
+  (:use [scramblyzer.stats])
   (:use [clojure.string :only [split]])
   (:use [clojure.data.csv])
   (:gen-class)

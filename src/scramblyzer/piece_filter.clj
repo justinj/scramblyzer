@@ -1,4 +1,4 @@
-(ns com.justinjaffray.scrambles.piece-filter)
+(ns scramblyzer.piece-filter)
 
 (def oriented-edges 
   #{"UF" "UR" "UB" "UL" "DF" "DR" "DB" "DL" "FR" "FL" "BR" "BL"})

@@ -1,5 +1,5 @@
-(ns com.justinjaffray.scrambles.test.reid-parser
-  (:use [com.justinjaffray.scrambles.reid-parser])
+(ns scramblyzer.test.reid-parser
+  (:use [scramblyzer.reid-parser])
   (:use [clojure.test]))
 
 (deftest test-empty
@@ -25,3 +25,15 @@
          (is (= "UF UL UB UR DF DR DB DL FR FL BR BL URB UFR UBL ULF DRF DFL DLB DBR"
                 (scramble->reid "R U R' U' R' F R2 U' R' U' R U R' F'")))
          )
+
+(deftest test-twist
+  (is (= "FU"
+         (twist "UF" 1)))
+  (is (= "UF"
+         (twist "FU" 1)))
+  (is (= "RUF"
+         (twist "FRU" 1)))
+  (is (= "UFR"
+         (twist "FRU" -1)))
+  )
+
