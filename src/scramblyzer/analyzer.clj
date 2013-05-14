@@ -57,8 +57,8 @@
   "Unless the piece or any of its twists matches the predicate,
   replace it with the Acube symbol for ignore (@?)"
   (if (pred piece)
-    piece
-    "@?"))
+      piece
+      "@?"))
 
 (defn- string->pieces
   [reid-string]
