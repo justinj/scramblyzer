@@ -1,7 +1,8 @@
 (ns scramblyzer.analyzer
   (:use [clojure.string :only [split join]])
   (:use [scramblyzer.reid-parser])
-  (:use [scramblyzer.piece-filter]))
+  (:use [scramblyzer.piece-filter])
+  )
 
 (defn num-oriented-corners
   [scramble]
@@ -18,9 +19,9 @@
             (.edges (scramble->state scramble)))))
 
 (defn solve-optimal
-  [reid-string]
-  "Gets the qtm distance for the given reid string"
-  (let [cube-state (acube.format.ReidParser/parse reid-string)
+  [state]
+  "Gets the htm distance for the given reid string"
+  (let [cube-state (acube.format.ReidParser/parse (state->reid state))
         distance-result (ref nil)
         reporter (proxy
                    [acube.Reporter] []
@@ -57,8 +58,8 @@
   "Unless the piece or any of its twists matches the predicate,
   replace it with the Acube symbol for ignore (@?)"
   (if (pred piece)
-      piece
-      "@?"))
+    piece
+    "@?"))
 
 (defn- string->pieces
   [reid-string]
@@ -72,23 +73,20 @@
   [reid-string]
   (drop 12 (string->pieces reid-string)))
 
-(defn filter-pieces
-  ([pred reid]
-   (filter-pieces pred pred reid))
-  ([edge-pred corner-pred reid]
-    (let [edges   (reid-edges reid)
-          corners (reid-corners reid)]
-     (str (join " " 
-                (concat
-                  (map 
-                    (partial ignore-piece-unless edge-pred) 
-                    edges)
-                  (map 
-                    (partial ignore-piece-unless corner-pred)
-                    corners)))))))
+(defn- filter-pieces
+  ([pred state]
+   (filter-pieces pred pred state))
+  ([edge-pred corner-pred state]
+     (->State
+       (map (partial ignore-piece-unless edge-pred) 
+            (.edges state))
+       (map (partial ignore-piece-unless corner-pred) 
+            (.corners state)))))
 
 (defn cross-dist
   [scramble]
-  (solve-optimal (filter-pieces
-                   cross-edge?
-                   (scramble->reid scramble))))
+  (let [state (scramble->state scramble)]
+    (solve-optimal 
+      (filter-pieces
+        cross-edge?
+        state))))
