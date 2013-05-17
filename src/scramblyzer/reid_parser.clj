@@ -12,35 +12,35 @@
 
 (def moves
   {
-    "U" (Move. [1 2 3 0 4 5 6 7 8 9 10 11]
-               [0 0 0 0 0 0 0 0 0 0 0 0]
-               [1 2 3 0 4 5 6 7]
-               [0 0 0 0 0 0 0 0])
+   "U" (Move. [1 2 3 0 4 5 6 7 8 9 10 11]
+              [0 0 0 0 0 0 0 0 0 0 0 0]
+              [1 2 3 0 4 5 6 7]
+              [0 0 0 0 0 0 0 0])
 
-    "D" (Move. [0 1 2 3 7 4 5 6 8 9 10 11]
-               [0 0 0 0 0 0 0 0 0 0 0 0]
-               [0 1 2 3 5 6 7 4]
-               [0 0 0 0 0 0 0 0])
+   "D" (Move. [0 1 2 3 7 4 5 6 8 9 10 11]
+              [0 0 0 0 0 0 0 0 0 0 0 0]
+              [0 1 2 3 5 6 7 4]
+              [0 0 0 0 0 0 0 0])
 
-    "F" (Move. [9 1 2 3 8 5 6 7 0 4 10 11]
-               [1 0 0 0 1 0 0 0 1 1 0 0]
-               [3 1 2 5 0 4 6 7]
-               [1 0 0 -1 -1 1 0 0])
+   "F" (Move. [9 1 2 3 8 5 6 7 0 4 10 11]
+              [1 0 0 0 1 0 0 0 1 1 0 0]
+              [3 1 2 5 0 4 6 7]
+              [1 0 0 -1 -1 1 0 0])
 
-    "B" (Move. [0 1 10 3 4 5 11 7 8 9 6 2]
-               [0 0 1 0 0 0 1 0 0 0 1 1]
-               [0 7 1 3 4 5 2 6]
-               [0 -1 1 0 0 0 -1 1])
+   "B" (Move. [0 1 10 3 4 5 11 7 8 9 6 2]
+              [0 0 1 0 0 0 1 0 0 0 1 1]
+              [0 7 1 3 4 5 2 6]
+              [0 -1 1 0 0 0 -1 1])
 
-    "L" (Move. [0 1 2 11 4 5 6 9 8 3 10 7]
-               [0 0 0 0 0 0 0 0 0 0 0 0]
-               [0 1 6 2 4 3 5 7]
-               [0 0 -1 1 0 -1 1 0])
+   "L" (Move. [0 1 2 11 4 5 6 9 8 3 10 7]
+              [0 0 0 0 0 0 0 0 0 0 0 0]
+              [0 1 6 2 4 3 5 7]
+              [0 0 -1 1 0 -1 1 0])
 
-    "R" (Move. [0 8 2 3 4 10 6 7 5 9 1 11]
-               [0 0 0 0 0 0 0 0 0 0 0 0]
-               [4 0 2 3 7 5 6 1]
-               [-1 1 0 0 1 0 0 -1])})
+   "R" (Move. [0 8 2 3 4 10 6 7 5 9 1 11]
+              [0 0 0 0 0 0 0 0 0 0 0 0]
+              [4 0 2 3 7 5 6 1]
+              [-1 1 0 0 1 0 0 -1])})
 
 (defn- scramble-moves
   [scramble]
@@ -64,10 +64,10 @@
   [scramble]
   "Turn all the moves into one of {U,D,L,R,F,B}"
   (let [moves (scramble-moves scramble)]
-  (join " "
-        (mapcat
-          expand-move
-          moves))))
+    (join " "
+          (mapcat
+            expand-move
+            moves))))
 
 (def solved-edges
   ; 0    1    2    3    4    5    6    7    8    9    10   11
@@ -78,7 +78,7 @@
   ["UFR" "URB" "UBL" "ULF" "DRF" "DFL" "DLB" "DBR"])
 
 (def solved-state
-  (State. solved-edges solved-corners))
+  (->State solved-edges solved-corners))
 
 (defn twist
   [piece-name amount]
@@ -103,30 +103,30 @@
 (defn- apply-move-edges
   [edges move]
   (-> edges
-    (permute (.edge-perm move))
-    (orient  (.edge-orie move))))
+      (permute (.edge-perm move))
+      (orient  (.edge-orie move))))
 
 (defn- apply-move-corners
   [corners move]
   (-> corners
-    (permute (.corner-perm move))
-    (orient  (.corner-orie move))))
+      (permute (.corner-perm move))
+      (orient  (.corner-orie move))))
 
 (defn- apply-move
   [state move-name]
   (let [move (moves move-name)]
-  (State. (apply-move-edges   (.edges state)   move)
-          (apply-move-corners (.corners state) move))))
+    (State. (apply-move-edges   (.edges state)   move)
+            (apply-move-corners (.corners state) move))))
 
 (defn scramble->state 
   [scramble]
   "Create a State record from a scramble"
   (let [moves (-> scramble
-                expand-scramble
-                scramble-moves)]
-      (reduce apply-move
-              solved-state
-              moves)))
+                  expand-scramble
+                  scramble-moves)]
+    (reduce apply-move
+            solved-state
+            moves)))
 
 (defn- string->pieces
   [reid-string]
