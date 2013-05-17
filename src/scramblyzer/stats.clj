@@ -4,6 +4,7 @@
 
 (def number-of-scramble-lengths 10)
 (def scrambles-to-use 1)
+(def scramble-dir "scrambles/5gen")
 
 (defn- average
   [values]
@@ -13,7 +14,7 @@
   [length]
   (take scrambles-to-use
         (split 
-          (slurp (str "scrambles/6gen/len_" length))
+          (slurp (str scramble-dir "/len_" length))
           #"\n"
           -1)))
 
