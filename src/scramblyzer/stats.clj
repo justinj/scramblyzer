@@ -2,9 +2,8 @@
   (:use [clojure.string :only [split]])
   (:use [clojure.data.csv]))
 
-(def filename "data/results.csv")
-(def number-of-scramble-lengths 50)
-(def scrambles-to-use 1000)
+(def number-of-scramble-lengths 10)
+(def scrambles-to-use 1)
 
 (defn- average
   [values]
@@ -13,10 +12,10 @@
 (defn- scrambles-of-length
   [length]
   (take scrambles-to-use
-  (split 
-    (slurp (str "data/scrambles_len_" length))
-    #"\n"
-    -1)))
+        (split 
+          (slurp (str "data/scrambles_len_" length))
+          #"\n"
+          -1)))
 
 (def scramble-lists
   (map scrambles-of-length (range 0 number-of-scramble-lengths)))
@@ -39,13 +38,16 @@
   "Add the header to the table"
   (concat [["length" "stat"]]
           table))
+(defn- tabular-data
+  [metric-function]
+  (add-header
+    (map list
+         (range)
+         (analyze-lists scramble-lists metric-function))))
 
 (defn get-csv 
   [metric-function]
   (with-out-str
-    (write-csv *out*
-               (add-header
-                 (map list
-                      (range)
-                      (analyze-lists scramble-lists metric-function))))))
-
+    (write-csv 
+      ; *out*
+      (tabular-data metric-function)))

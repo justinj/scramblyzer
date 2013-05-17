@@ -7,4 +7,4 @@
 
 (defn -main []
   (println
-    (get-csv cross-dist)))
+    (get-csv num-oriented-edges)))
