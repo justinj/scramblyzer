@@ -82,14 +82,13 @@
 
 (defn twist
   [piece-name amount]
-  "Twist a piece by the amount given.
-  e.g., UF twisted becomes FU"
-  (let [sides (seq piece-name)
-        times (mod amount (count sides))]
-    (cond (= times 0) piece-name
-          :else (twist
-                  (join (concat (rest sides) (list (first sides))))
-                  (dec times)))))
+  (let [sides (vec (seq piece-name))
+        size (count sides)]
+    (join 
+      (map sides 
+           (map #(mod % size) 
+                (range amount 
+                       (+ size amount)))))))
 
 (defn- permute
   [base permutation]
