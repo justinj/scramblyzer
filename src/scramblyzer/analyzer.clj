@@ -4,6 +4,8 @@
   (:use [scramblyzer.piece-filter])
   )
 
+(def max-distance 20)
+
 (defn num-oriented-corners
   [scramble]
   "Determines the number of oriented corners from a scramble"
@@ -48,7 +50,7 @@
     (.solveOptimal cube-state
                    acube.Metric/FACE
                    acube.Turn/valueSet
-                   20
+                   max-distance
                    false
                    reporter )
     @distance-result))
