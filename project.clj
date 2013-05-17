@@ -5,4 +5,4 @@
                  [org.clojure/data.csv "0.1.2"]
                  [acube/acube "4.0.0"]
                  ]
-  :main com.justinjaffray.scrambles.core)
+  :main scramblyzer.core)

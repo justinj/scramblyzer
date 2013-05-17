@@ -13,7 +13,7 @@
   [length]
   (take scrambles-to-use
         (split 
-          (slurp (str "data/scrambles_len_" length))
+          (slurp (str "scrambles/6gen/len_" length))
           #"\n"
           -1)))
 
@@ -49,5 +49,5 @@
   [metric-function]
   (with-out-str
     (write-csv 
-      ; *out*
-      (tabular-data metric-function)))
+      *out*
+      (tabular-data metric-function))))
