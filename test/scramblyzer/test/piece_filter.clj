@@ -2,6 +2,20 @@
   (:use [scramblyzer.piece-filter])
   (:use [clojure.test]))
 
+(deftest test-corner
+  (is (not (corner? "UF")))
+  (is (not (corner? "FU")))
+  (is (corner? "FUR"))
+  (is (corner? "URF"))
+  )
+
+(deftest test-edge
+  (is (edge? "UF"))
+  (is (edge? "FU"))
+  (is (not (edge? "FUR")))
+  (is (not (edge? "URF")))
+  )
+
 (deftest test-edge-oriented
          (is (edge-oriented? "UF"))
          (is (not (edge-oriented? "FU")))

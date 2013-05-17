@@ -26,3 +26,15 @@
   (is (= 1
          (cross-dist "F")))
          )
+
+(deftest test-corner-dist
+  (is (= 0 (corner-dist "")))
+  (is (= 1 (corner-dist "R")))
+  (is (= 0 (corner-dist "R U' R U R U R U' R' U' R2")))
+  )
+
+(deftest test-edge-dist
+  (is (= 0 (edge-dist "")))
+  (is (= 1 (edge-dist "R")))
+  (is (= 0 (edge-dist "R' U R' D2 R U' R' D2 R2")))
+  )

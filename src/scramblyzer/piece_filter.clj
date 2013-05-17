@@ -20,6 +20,14 @@
           (iterate #(twist % 1) 
                    piece))))
 
+(defn corner? [piece]
+  "Whether the piece is an corner"
+  (= 3 (.length piece))) 
+
+(defn edge? [piece]
+  "Whether the piece is an edge"
+  (= 2 (.length piece))) 
+
 (defn edge-oriented?  [edge]
   "Whether or not the edge is oriented"
   (oriented-edges edge))

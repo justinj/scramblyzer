@@ -74,11 +74,28 @@
        (map (partial ignore-piece-unless corner-pred) 
             (.corners state)))))
 
-(defn cross-dist
-  [scramble]
-  "How many moves are required the solve the cross on D of the scramble."
+(defn- solve-optimal-filtered
+  [scramble pred]
+  "The optimal solution to the scramble, ignoring
+  any pieces that do not satisfy the predicate."
   (let [state (scramble->state scramble)]
     (solve-optimal 
       (filter-pieces
-        cross-edge?
+        pred
         state))))
+
+(defn cross-dist
+  [scramble]
+  "How many moves are required the solve the cross on D of the scramble."
+  (solve-optimal-filtered scramble cross-edge?))
+
+(defn edge-dist
+  [scramble]
+  "How many moves are required the solve the edges of the scramble.
+  Takes too long to use in practice."
+  (solve-optimal-filtered scramble edge?))
+
+(defn corner-dist
+  [scramble]
+  "How many moves are required the solve the corners of the scramble."
+  (solve-optimal-filtered scramble corner?))
