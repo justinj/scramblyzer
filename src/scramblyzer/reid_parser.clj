@@ -94,8 +94,7 @@
 (defn- permute
   [base permutation]
   "Applies the permutation to the base"
-  (vec (for [index permutation]
-    (base index))))
+  (vec (map base permutation)))
 
 (defn- orient
   [base orientation]
