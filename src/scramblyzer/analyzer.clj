@@ -57,13 +57,14 @@
 
 (defn- ignore-piece-unless
   [pred piece]
-  "Unless the piece or any of its twists matches the predicate,
-  replace it with the Acube symbol for ignore (@?)"
+  "Unless the piece satisfies the predicate, replace it with the Acube 
+  symbol for ignore (@?)"
   (if (pred piece)
     piece
     "@?"))
 
 (defn- filter-pieces
+  "Ignore any pieces not matching the predicate."
   ([pred state]
    (filter-pieces pred pred state))
   ([edge-pred corner-pred state]
@@ -75,6 +76,7 @@
 
 (defn cross-dist
   [scramble]
+  "How many moves are required the solve the cross on D of the scramble."
   (let [state (scramble->state scramble)]
     (solve-optimal 
       (filter-pieces
