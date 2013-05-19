@@ -17,15 +17,16 @@
  )
 
 (deftest test-cross-dist
-  (is (= 0
-         (cross-dist "")))
-  (is (= 1
-         (cross-dist "R")))
-  (is (= 1
-         (cross-dist "L2 F2 L2")))
-  (is (= 1
-         (cross-dist "F")))
-         )
+  (is (= 0 (cross-dist "")))
+  (is (= 1 (cross-dist "R")))
+  (is (= 1 (cross-dist "L2 F2 L2")))
+  (is (= 1 (cross-dist "F")))
+  )
+
+(deftest test-roux-block-dist
+  (is (= 0 (roux-block-dist "")))
+  (is (= 1 (roux-block-dist "F")))
+  )
 
 (deftest test-corner-dist
   (is (= 0 (corner-dist "")))

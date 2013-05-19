@@ -8,6 +8,9 @@
 (def oriented-corners
   #{"UFR" "URB" "UBL" "ULF" "DRF" "DFL" "DLB" "DBR"})
 
+(def roux-block-pieces
+  #{"DL" "BL" "FL" "DFL" "DLB"})
+
 (def cross-edges
   #{"DR" "DB" "DL" "DF"})
 
@@ -39,3 +42,7 @@
 (defn cross-edge? [edge]
   "Whether the edge is a cross edge"
   (some cross-edges (all-twists edge)))
+
+(defn roux-block-piece? [piece]
+  "Whether the edge is a cross edge"
+  (some roux-block-pieces (all-twists piece)))

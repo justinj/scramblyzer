@@ -89,6 +89,12 @@
   "How many moves are required the solve the cross on D of the scramble."
   (solve-optimal-filtered scramble cross-edge?))
 
+(defn roux-block-dist
+  [scramble]
+  "How many moves are required to solve the first roux block and DL
+  note: ignores that roux blocks off by L are still solved"
+  (solve-optimal-filtered scramble roux-block-piece?))
+
 (defn edge-dist
   [scramble]
   "How many moves are required the solve the edges of the scramble.
