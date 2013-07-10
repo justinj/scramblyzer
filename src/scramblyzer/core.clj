@@ -3,8 +3,9 @@
   (:use [scramblyzer.stats])
   (:use [clojure.string :only [split]])
   (:use [clojure.data.csv])
+  (:use [incanter core stats charts])
   (:gen-class))
 
 (defn -main []
-  (println
-    (get-csv num-oriented-edges)))
+  (let [[lengths results] (tabular-data num-oriented-edges)]
+    (view (scatter-plot lengths results))))
