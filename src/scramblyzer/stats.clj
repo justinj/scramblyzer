@@ -2,24 +2,18 @@
   (:use [clojure.string :only [split]])
   (:use [clojure.data.csv]))
 
-(def number-of-scramble-lengths 30)
-(def scrambles-to-use 30)
-(def scramble-dir "scrambles/6gen")
 
 (defn- average
   [values]
   (float (/ (reduce + values) (count values))))
 
 (defn- scrambles-of-length
-  [length]
-  (take scrambles-to-use
+  [length amount scramble-dir]
+  (take amount
         (split 
           (slurp (str scramble-dir "/len_" length))
           #"\n"
           -1)))
-
-(def scramble-lists
-  (map scrambles-of-length (range 0 number-of-scramble-lengths)))
 
 (defn- analyze-scrambles
   [metric-function scrambles]
@@ -40,7 +34,18 @@
   (concat [["length" "stat"]]
           [table]))
 
+(defn- get-scramble-lists
+  [scramble-count max-length scramble-dir]
+  (map #(scrambles-of-length % scramble-count scramble-dir) (range max-length))
+  )
+
 (defn tabular-data
-  [metric-function]
-  (let [results (analyze-lists scramble-lists metric-function)]
+  [{:keys [metric-function
+           scramble-count
+           max-length
+           scramble-dir]}]
+  (let [scramble-lists (get-scramble-lists scramble-count 
+                                           max-length 
+                                           scramble-dir)
+        results (analyze-lists scramble-lists metric-function)]
     [(range (count results)) results]))
