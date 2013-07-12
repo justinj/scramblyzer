@@ -105,3 +105,23 @@
   [scramble]
   "How many moves are required the solve the corners of the scramble."
   (solve-optimal-filtered scramble corner?))
+
+(defn- same-but-misoriented?
+  [a b]
+  (let [size (dec (count a))
+        twists (map #(twist a %) (range 1 (inc size)))]
+    (some #(= b %) twists)
+  ))
+
+(defn misoriented-pieces
+  [scramble]
+  "How many pieces in the scramble are permuted, but oriented improperly"
+  (let [state (scramble->state scramble)
+        edges (.edges state)
+        corners (.corners state)]
+    (count
+      (remove nil? 
+        (map same-but-misoriented? 
+             (concat edges corners) 
+             (concat solved-edges solved-corners))))
+    ))

@@ -39,3 +39,10 @@
   (is (= 1 (edge-dist "R")))
   (is (= 0 (edge-dist "R' U R' D2 R U' R' D2 R2")))
   )
+
+(deftest test-misoriented-pieces
+  (is (= 0 (misoriented-pieces "")))
+  (is (= 0 (misoriented-pieces "R")))
+  (is (= 1 (misoriented-pieces "R U R' F")))
+  (is (= 4 (misoriented-pieces "R U R' U' R U R' U'")))
+  )

@@ -7,13 +7,13 @@
   [values]
   (float (/ (reduce + values) (count values))))
 
+(defn- lines [text]
+  (split text #"\n" -1))
+
 (defn- scrambles-of-length
   [length amount scramble-dir]
   (take amount
-        (split 
-          (slurp (str scramble-dir "/len_" length))
-          #"\n"
-          -1)))
+        (lines (slurp (str scramble-dir "/len_" length)))))
 
 (defn- analyze-scrambles
   [metric-function scrambles]
@@ -37,6 +37,11 @@
 (defn- get-scramble-lists
   [scramble-count max-length scramble-dir]
   (map #(scrambles-of-length % scramble-count scramble-dir) (range max-length))
+  )
+
+(defn analyze-file
+  [metric-function filename]
+  (map metric-function (lines (slurp filename)))
   )
 
 (defn tabular-data

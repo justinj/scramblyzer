@@ -2,6 +2,11 @@
 
 Analyzing Rubik's Cube scrambles.
 
+## Coming statistics
+
+BLD cycle lengths
+flipped buffers/pieces
+
 ## Usage
 
 When running for the first time,
